@@ -30,3 +30,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+/.
+/node_modules
+/target
+/package.json
+/webpack.config.js
+/webpack.generated.js
