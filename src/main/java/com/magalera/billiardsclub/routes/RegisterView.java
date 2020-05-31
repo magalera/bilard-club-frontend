@@ -20,7 +20,7 @@ public class RegisterView extends VerticalLayout implements BeforeEnterObserver 
 
     public static final String ROUTE_NAME = "register";
 
-    private final ComboBox<UserType> type = new ComboBox<UserType>("Type");
+    private final ComboBox<UserType> type = new ComboBox<>("Type");
     private final TextField firstName = new TextField("First name");
     private final TextField lastName = new TextField("Last name");
     private final TextField email = new TextField("Email");
@@ -29,10 +29,12 @@ public class RegisterView extends VerticalLayout implements BeforeEnterObserver 
     public RegisterView() {
         add(new Text(ROUTE_NAME));
 
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
+
         type.setItems(UserType.values());
         Button submit = new Button("Submit",
                 this::handleRegistration);
-
 
         add(type, firstName, lastName, email, password, submit);
     }

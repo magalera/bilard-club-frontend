@@ -13,7 +13,9 @@ public class LoginOrRegisterView extends VerticalLayout implements BeforeEnterOb
     public static final String ROUTE_NAME = "";
 
     public LoginOrRegisterView() {
-        setSizeFull();
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
+
         add(new Button("Login", event -> getUI().ifPresent(ui -> ui.navigate(LoginView.class))));
         add(new Button("Register", event -> getUI().ifPresent(ui -> ui.navigate(RegisterView.class))));
     }
