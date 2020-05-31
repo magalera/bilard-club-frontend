@@ -4,7 +4,7 @@ import com.magalera.billiardsclub.domain.User;
 
 public class UserService {
 
-    private static String URL_PATH = "/v1/user";
+    private static final String URL_PATH = "/v1/user";
 
     private static UserService instance;
 
@@ -24,7 +24,7 @@ public class UserService {
     }
 
     //@PostMapping("/login")
-    public User logIn(User user){
+    public User logIn(User user) {
         return null;
     }
 

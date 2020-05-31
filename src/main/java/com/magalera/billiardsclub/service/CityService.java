@@ -4,7 +4,7 @@ import com.magalera.billiardsclub.domain.City;
 
 public class CityService {
 
-    private static String URL_PATH = "/v1/city";
+    private static final String URL_PATH = "/v1/city";
 
     private static CityService instance;
 
@@ -19,7 +19,7 @@ public class CityService {
     }
 
     //@GetMapping("/{id}")
-    public City get(Long id){
+    public City get(Long id) {
         return null;
     }
 }

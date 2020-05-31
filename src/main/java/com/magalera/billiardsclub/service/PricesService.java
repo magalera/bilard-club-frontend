@@ -4,7 +4,7 @@ import com.magalera.billiardsclub.domain.Prices;
 
 public class PricesService {
 
-    private static String URL_PATH = "/v1/prices";
+    private static final String URL_PATH = "/v1/prices";
 
     private static PricesService instance;
 

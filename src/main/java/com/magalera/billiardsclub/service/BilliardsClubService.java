@@ -4,7 +4,7 @@ import com.magalera.billiardsclub.domain.BilliardsClub;
 
 public class BilliardsClubService {
 
-    private static String URL_PATH = "/v1/bilardClub";
+    private static final String URL_PATH = "/v1/bilardClub";
 
     private static BilliardsClubService instance;
 

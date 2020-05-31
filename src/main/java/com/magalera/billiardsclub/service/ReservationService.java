@@ -4,7 +4,7 @@ import com.magalera.billiardsclub.domain.Reservation;
 
 public class ReservationService {
 
-    private static String URL_PATH = "/v1/reservation";
+    private static final String URL_PATH = "/v1/reservation";
 
     private static ReservationService instance;
 
@@ -19,21 +19,21 @@ public class ReservationService {
     }
 
     //@PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public Reservation create(Reservation reservationDto){
+    public Reservation create(Reservation reservationDto) {
         return null;
     }
 
     //@GetMapping("/{id}")
-    public Reservation show(Long id){
+    public Reservation show(Long id) {
         return null;
     }
 
     //@PutMapping(consumes = APPLICATION_JSON_VALUE)
-    public Reservation update(Reservation reservationDto){
+    public Reservation update(Reservation reservationDto) {
         return null;
     }
 
     //@DeleteMapping("/{id}")
-    public void cancel(Long id){
+    public void cancel(Long id) {
     }
 }

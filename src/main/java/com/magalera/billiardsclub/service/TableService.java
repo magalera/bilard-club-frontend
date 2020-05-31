@@ -4,7 +4,7 @@ import com.magalera.billiardsclub.domain.Table;
 
 public class TableService {
 
-    private static String URL_PATH = "/v1/table";
+    private static final String URL_PATH = "/v1/table";
 
     private static TableService instance;
 
