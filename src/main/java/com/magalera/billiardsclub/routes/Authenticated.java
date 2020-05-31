@@ -1,6 +1,8 @@
 package com.magalera.billiardsclub.routes;
 
+import com.magalera.billiardsclub.domain.User;
 import com.magalera.billiardsclub.domain.UserType;
+import com.magalera.billiardsclub.routes.club.AddClubView;
 import com.magalera.billiardsclub.session.Controller;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.contextmenu.MenuItem;
@@ -20,11 +22,12 @@ public class Authenticated extends VerticalLayout implements BeforeEnterObserver
 
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
+        setWidthFull();
 
         MenuBar menuBar = new MenuBar();
 
-        if (Controller.getUser().getType().equals(UserType.MANAGER)) {
-            menuBar.addItem("Add club");
+        if (Controller.getUser().orElse(User.builder().build()).getType().equals(UserType.MANAGER)) {
+            menuBar.addItem("Add club", this::addClub);
         }
         menuBar.addItem("Clubs");
         menuBar.addItem("My reservations");
@@ -32,6 +35,10 @@ public class Authenticated extends VerticalLayout implements BeforeEnterObserver
         menuBar.addItem("Sign Out", this::singOut);
 
         add(menuBar);
+    }
+
+    private void addClub(ClickEvent<MenuItem> event) {
+        getUI().ifPresent(ui -> ui.navigate(AddClubView.class));
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -56,6 +57,7 @@ public class RegisterView extends VerticalLayout implements BeforeEnterObserver 
                 .build();
         user = UserService.getInstance().register(user);
         Controller.saveUser(user);
+        Notification.show("Account has been created");
         getUI().ifPresent(ui -> ui.navigate(MainView.class));
     }
 
