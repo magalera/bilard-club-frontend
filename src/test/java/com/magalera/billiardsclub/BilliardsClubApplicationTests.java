@@ -1,10 +1,10 @@
-package com.magalera.billiardclub;
+package com.magalera.billiardsclub;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BilliardClubApplicationTests {
+class BilliardsClubApplicationTests {
 
     @Test
     void contextLoads() {
