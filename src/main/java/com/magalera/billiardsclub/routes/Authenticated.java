@@ -1,5 +1,6 @@
 package com.magalera.billiardsclub.routes;
 
+import com.magalera.billiardsclub.domain.UserType;
 import com.magalera.billiardsclub.session.Controller;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.contextmenu.MenuItem;
@@ -22,6 +23,12 @@ public class Authenticated extends VerticalLayout implements BeforeEnterObserver
 
         MenuBar menuBar = new MenuBar();
 
+        if (Controller.getUser().getType().equals(UserType.MANAGER)) {
+            menuBar.addItem("Add club");
+        }
+        menuBar.addItem("Clubs");
+        menuBar.addItem("My reservations");
+        menuBar.addItem("Account");
         menuBar.addItem("Sign Out", this::singOut);
 
         add(menuBar);

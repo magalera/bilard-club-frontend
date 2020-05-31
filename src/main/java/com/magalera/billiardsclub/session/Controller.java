@@ -14,4 +14,8 @@ public class Controller {
     public static void saveUser(User user) {
         VaadinSession.getCurrent().setAttribute(USER_SESSION_KEY, user);
     }
+
+    public static User getUser() {
+        return (User) VaadinSession.getCurrent().getAttribute(USER_SESSION_KEY);
+    }
 }
