@@ -1,13 +1,13 @@
-package com.magalera.bilardclub;
+package com.magalera.billiardclub;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BilardclubApplication {
+public class BilliardClubApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BilardclubApplication.class, args);
+        SpringApplication.run(BilliardClubApplication.class, args);
     }
 
 }
