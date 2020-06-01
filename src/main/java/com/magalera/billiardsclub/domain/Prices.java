@@ -1,12 +1,12 @@
 package com.magalera.billiardsclub.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Builder
 @AllArgsConstructor
 @Getter
+@Setter
+@ToString
 public class Prices {
     private Long id;
     private Double tablePrice;

@@ -1,14 +1,14 @@
 package com.magalera.billiardsclub.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.List;
 
 @Builder
 @AllArgsConstructor
 @Getter
+@Setter
+@ToString
 public class BilliardsClub {
     private Long id;
     private String name;
