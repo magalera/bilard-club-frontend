@@ -13,13 +13,17 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
 @Route(LoginView.ROUTE_NAME)
 public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
-    public static final String ROUTE_NAME = "login";
+    static final String ROUTE_NAME = "login";
+
+    @Autowired
+    private UserService userService;
 
     private final TextField email = new TextField("Email");
     private final PasswordField password = new PasswordField("Password");
@@ -44,10 +48,11 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
     }
 
     private void handleLogin(ClickEvent<Button> event) {
-        Optional<User> user = UserService.getInstance().login(email.getValue(), password.getValue());
+        Optional<User> user = userService.login(email.getValue(), password.getValue());
         if (user.isPresent()) {
             Controller.saveUser(user.get());
             getUI().ifPresent(ui -> ui.navigate(MainView.class));
+            Notification.show("User logged successfully");
         } else {
             Notification.show("Invalid email or password");
         }

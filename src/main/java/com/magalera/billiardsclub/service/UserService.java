@@ -1,28 +1,39 @@
 package com.magalera.billiardsclub.service;
 
+import com.magalera.billiardsclub.config.BackendConfiguration;
 import com.magalera.billiardsclub.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Optional;
 
+@Service
 public class UserService {
 
     private static final String URL_PATH = "/v1/user";
 
-    private static UserService instance;
+    @Autowired
+    private RestTemplate restTemplate;
 
-    private UserService() {
-    }
-
-    public static UserService getInstance() {
-        if (instance == null) {
-            instance = new UserService();
-        }
-        return instance;
-    }
+    @Autowired
+    private BackendConfiguration backendConfiguration;
 
     //@PostMapping(consumes = APPLICATION_JSON_VALUE)
     public User register(User user) {
-        return user;
+        URI url = UriComponentsBuilder.fromHttpUrl(backendConfiguration.getBackendApiEndpoint() + URL_PATH)
+                .build().encode().toUri();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+
+        HttpEntity<User> request = new HttpEntity<>(user, headers);
+
+        return restTemplate.postForEntity(url, request, User.class).getBody();
     }
 
     //@PostMapping("/login")

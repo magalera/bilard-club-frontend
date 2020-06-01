@@ -17,6 +17,7 @@ import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(RegisterView.ROUTE_NAME)
 public class RegisterView extends VerticalLayout implements BeforeEnterObserver {
@@ -28,8 +29,10 @@ public class RegisterView extends VerticalLayout implements BeforeEnterObserver 
     private final TextField lastName = new TextField("Last name");
     private final TextField email = new TextField("Email");
     private final PasswordField password = new PasswordField("Password");
-
     private final Binder<User> binder = new Binder<>(User.class);
+
+    @Autowired
+    private UserService userService;
 
     public RegisterView() {
         add(new Text(ROUTE_NAME));
@@ -69,10 +72,16 @@ public class RegisterView extends VerticalLayout implements BeforeEnterObserver 
             return;
         }
         User user = binder.getBean();
-        user = UserService.getInstance().register(user);
-        Controller.saveUser(user);
-        Notification.show("Account has been created");
-        getUI().ifPresent(ui -> ui.navigate(MainView.class));
+
+        try {
+            user = userService.register(user);
+            Controller.saveUser(user);
+            Notification.show("Account has been created");
+            getUI().ifPresent(ui -> ui.navigate(MainView.class));
+        } catch (Exception e) {
+            Notification.show("Error: " + e, 10000, Notification.Position.BOTTOM_START);
+            e.printStackTrace();
+        }
     }
 
 }
