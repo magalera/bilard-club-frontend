@@ -12,6 +12,8 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
@@ -19,13 +21,15 @@ import com.vaadin.flow.router.Route;
 @Route(RegisterView.ROUTE_NAME)
 public class RegisterView extends VerticalLayout implements BeforeEnterObserver {
 
-    public static final String ROUTE_NAME = "register";
+    static final String ROUTE_NAME = "register";
 
     private final ComboBox<UserType> type = new ComboBox<>("Type");
     private final TextField firstName = new TextField("First name");
     private final TextField lastName = new TextField("Last name");
     private final TextField email = new TextField("Email");
     private final PasswordField password = new PasswordField("Password");
+
+    private final Binder<User> binder = new Binder<>(User.class);
 
     public RegisterView() {
         add(new Text(ROUTE_NAME));
@@ -36,6 +40,19 @@ public class RegisterView extends VerticalLayout implements BeforeEnterObserver 
         type.setItems(UserType.values());
         Button submit = new Button("Submit",
                 this::handleRegistration);
+
+        binder.setBean(User.builder().build());
+        binder.forField(type)
+                .asRequired("Required").bind(User::getType, User::setType);
+        binder.forField(firstName)
+                .asRequired("Required").bind(User::getFirstName, User::setFirstName);
+        binder.forField(lastName)
+                .asRequired("Required").bind(User::getLastName, User::setLastName);
+        binder.forField(email)
+                .withValidator(new EmailValidator("Email is incorrect"))
+                .bind(User::getEmail, User::setEmail);
+        binder.forField(password)
+                .asRequired("Required").bind(User::getPassword, User::setPassword);
 
         add(type, firstName, lastName, email, password, submit);
     }
@@ -48,13 +65,10 @@ public class RegisterView extends VerticalLayout implements BeforeEnterObserver 
     }
 
     private void handleRegistration(ClickEvent<Button> event) {
-        User user = User.builder()
-                .type(type.getValue())
-                .firstName(firstName.getValue())
-                .lastName(lastName.getValue())
-                .email(email.getValue())
-                .password(password.getValue())
-                .build();
+        if (!binder.isValid()) {
+            return;
+        }
+        User user = binder.getBean();
         user = UserService.getInstance().register(user);
         Controller.saveUser(user);
         Notification.show("Account has been created");
